@@ -1,0 +1,23 @@
+
+import java.util.Scanner;
+
+public class RepeatStrings {
+
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        int howMany = Integer.parseInt(scanner.nextLine());
+        repeat(input, howMany);
+    }
+
+    public static void repeat(String input, int howMany) {
+
+        for (int i = 0; i < howMany; i++) {
+
+            System.out.print(input);
+        }
+    }
+}
