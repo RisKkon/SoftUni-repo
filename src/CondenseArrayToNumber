@@ -1,0 +1,42 @@
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class maikati {
+
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        
+        ArrayList<Integer> condensed = new ArrayList<>();
+        ArrayList<Integer> numbers = new ArrayList<>();
+        String[] console = scanner.nextLine().split(" ");
+        for (String s : console) {
+            numbers.add(Integer.parseInt(s));
+        }
+        int counter = numbers.size() - 1;
+        if(numbers.size() != 1) {
+            
+            for (int i = 0; i < counter; i++) {
+                for (int j = 0; j < numbers.size(); j++) {
+                    if (j != numbers.size() - 1) {
+                        
+                        int sum = numbers.get(j) + numbers.get(j + 1);
+                        condensed.add(sum);
+                    }
+                }
+                numbers.clear();
+                numbers.addAll(condensed);
+                if (condensed.size() != 1) {
+                    condensed.clear();
+                }
+            }
+        }
+        if(numbers.size() != 1) {
+            System.out.println(condensed.get(0));
+        } else {
+            System.out.println(numbers.get(0));
+        }
+    }
+}
