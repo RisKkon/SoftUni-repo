@@ -1,0 +1,29 @@
+
+import java.util.Scanner;
+
+
+public class SmallestOfThreeNumbers {
+
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        
+        int[] nums = new int[3];
+        for (int i = 0; i <nums.length ; i++) {
+
+            nums[i] = Integer.parseInt(scanner.nextLine());
+        }
+        System.out.println(smallestNum(nums));
+    }
+    public static int smallestNum(int[] nums) {
+
+        int smallestNum = nums[0];
+        for (int num : nums) {
+            if (num < smallestNum) {
+                smallestNum = num;
+            }
+        }
+        return smallestNum;
+    }
+}
