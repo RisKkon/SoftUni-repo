@@ -1,0 +1,32 @@
+
+import java.util.Scanner;
+
+public class ArrayRotation {
+    
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        String[] arrayOfNums = scanner.nextLine().split(" ");
+
+        int numOfRotations = Integer.parseInt(scanner.nextLine());
+
+        for(int i = 0; i < numOfRotations; i++) {
+
+            String firstElement = arrayOfNums[0];
+
+            for(int j = 0; j < arrayOfNums.length - 1; j++) {
+
+                arrayOfNums[j] = arrayOfNums[j + 1];
+            }
+
+            arrayOfNums[arrayOfNums.length - 1] = firstElement;
+        }
+
+        for (String arrayOfNum : arrayOfNums) {
+
+            System.out.print(arrayOfNum + " ");
+        }
+
+    }
+
+}
