@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class GreaterOfTwoValues {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        
+        String input = scanner.nextLine();
+        if(input.equals("int")) {
+            int num1 = Integer.parseInt(scanner.nextLine());
+            int num2 = Integer.parseInt(scanner.nextLine());
+            System.out.println(getMax(num1, num2));
+
+        } else if(input.equals("char")) {
+            char element1 = scanner.next().charAt(0);
+            char element2 = scanner.next().charAt(0);
+            System.out.println(getMax(element1, element2));
+
+        } else {
+            String input1 = scanner.nextLine();
+            String input2 = scanner.nextLine();
+            System.out.println(getMax(input1, input2));
+        }
+    }
+
+    public static int getMax(int num1, int num2) {
+
+        return Math.max(num1, num2);
+    }
+
+    public static char getMax(char el1, char el2) {
+
+        if(el1 > el2) return el1;
+        
+        return el2;
+    }
+    public static String getMax(String el1, String el2) {
+
+        if(el1.compareTo(el2) > 0) return el1;
+        return el2;
+    }
+}
