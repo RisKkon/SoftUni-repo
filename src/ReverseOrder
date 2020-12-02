@@ -1,0 +1,21 @@
+import java.util.Scanner;
+
+public class ReverseOrder {
+
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int howManyNumbers = Integer.parseInt(scanner.nextLine());
+        int[] numbers = new int[howManyNumbers];
+        for(int i = 0; i < numbers.length; i++) {
+
+            numbers[i] = Integer.parseInt(scanner.nextLine());
+        }
+        System.out.println();
+        for(int i = howManyNumbers - 1; i >= 0; i--) {
+            System.out.print(numbers[i] + " ");
+        }
+    }
+}
