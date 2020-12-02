@@ -1,0 +1,25 @@
+
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+public class MathPower {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        double num = Double.parseDouble(scanner.nextLine());
+        int howMany = Integer.parseInt(scanner.nextLine());
+        System.out.println(new DecimalFormat("0.####").format(get(num, howMany)));
+    }
+
+    public static double get(double num, int howMany) {
+
+        double result = num;
+        for (int i = 0; i < howMany - 1; i++) {
+
+            result = result * num;
+        }
+        return result;
+    }
+}
