@@ -1,0 +1,41 @@
+
+
+import java.util.Scanner;
+
+
+public class Orders {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        int howMany = Integer.parseInt(scanner.nextLine());
+        worker(input, howMany);
+    }
+    
+    public static void worker(String input, int howMany) {
+
+        switch(input) {
+            case "coffee":
+                double output = howMany * 1.50;
+                System.out.printf("%.2f", output);
+                break;
+                
+            case "water":
+                double output1 = howMany * 1.00;
+                System.out.printf("%.2f", output1);
+                break;
+                
+            case "coke":
+                double output2 = howMany * 1.40;
+                System.out.printf("%.2f", output2);
+                break;
+                
+            case "snacks":
+                double output3 = howMany * 2.00;
+                System.out.printf("%.2f", output3);
+                break;
+        }
+    }
+}
