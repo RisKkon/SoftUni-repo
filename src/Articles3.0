@@ -1,0 +1,83 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+
+public class Articles3.0 {
+
+    public static class Article {
+
+        String title;
+        String content;
+
+        public Article(String title, String content, String author) {
+            this.title = title;
+            this.content = content;
+            this.author = author;
+        }
+
+        public String printToConsole() {
+
+            return String.format("%s - %s: %s", getTitle(), getContent(), getAuthor());
+        }
+
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public String getAuthor() {
+            return author;
+        }
+
+        public void setAuthor(String author) {
+            this.author = author;
+        }
+
+        String author;
+    }
+
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String userInput = scanner.nextLine();
+        String[] data = userInput.split(", ");
+        
+        Article article = new Article(data[0], data[1], data[2]);
+        int howManyCommands = Integer.parseInt(scanner.nextLine());
+        
+        for (int i = 0; i < howManyCommands; i++) {
+            
+            userInput = scanner.nextLine();
+            String[] tokens = userInput.split(": ");
+
+            switch (tokens[0]) {
+
+                case "Edit" :
+                    article.setContent(tokens[1]);
+                    break;
+                case "ChangeAuthor" :
+                    article.setAuthor(tokens[1]);
+                    break;
+                case "Rename" :
+                    article.setTitle(tokens[1]);
+                    break;
+
+            }
+        }
+        System.out.println(article.printToConsole());
+    }
+}
