@@ -1,0 +1,43 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class BonusScoringSystem {
+    
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int countOfStudents = Integer.parseInt(scanner.nextLine());
+        int countOfLectures = Integer.parseInt(scanner.nextLine());
+        int initialBonus = Integer.parseInt(scanner.nextLine());
+        List<Integer> listOfStudents = new ArrayList<>();
+        List<Double> listForBonuses = new ArrayList<>();
+
+
+        for (int i = 0; i < countOfStudents; i++) {
+
+            listOfStudents.add(Integer.parseInt(scanner.nextLine()));
+
+        }
+
+        for (Integer listOfStudent : listOfStudents) {
+
+            double totalBonus = (double) listOfStudent / countOfLectures * (5 + initialBonus);
+            listForBonuses.add(totalBonus);
+
+        }
+        double maxBonus = listForBonuses.get(0);
+        int indexOFMaxBonus = 0;
+        for (int i = 0; i < listForBonuses.size(); i++) {
+
+            if(maxBonus < listForBonuses.get(i)) {
+
+                maxBonus = listForBonuses.get(i);
+                indexOFMaxBonus = i;
+            }
+        }
+        System.out.printf("Max Bonus: %d. %n", (int) Math.round(listForBonuses.get(indexOFMaxBonus)));
+        System.out.printf("The student has attended %d lectures.", listOfStudents.get(indexOFMaxBonus));
+    }
+}
