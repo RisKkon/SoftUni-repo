@@ -1,0 +1,30 @@
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Furniture {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+        Pattern pattern = Pattern.compile(">>(?<type>[A-Za-z]+)<<(?<price>\\d+\\.?\\d+)!(?<howMany>\\d+)");
+        List<String> furniture = new ArrayList<>();
+        double totalCost = 0;
+        while(!userInput.equals("Purchase")) {
+            Matcher matcher = pattern.matcher(userInput);
+            if(matcher.find()) {
+                String type = matcher.group("type");
+                double price = Double.parseDouble(matcher.group("price"));
+                int howMany = Integer.parseInt(matcher.group("howMany"));
+                furniture.add(type);
+                totalCost += price * howMany;
+            }
+            userInput = scanner.nextLine();
+        }
+
+        System.out.println("Bought furniture:");
+        furniture.forEach(System.out::println);
+        System.out.printf("Total money spend: %.2f", totalCost);
+    }
+}
