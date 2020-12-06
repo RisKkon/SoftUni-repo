@@ -1,0 +1,46 @@
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class SoftUniParking {
+
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        
+        Map<String, String> vehicleRegister = new LinkedHashMap<>();
+        int countOfCommands = Integer.parseInt(scanner.nextLine());
+
+        for (int i = 0; i < countOfCommands; i++) {
+
+            String[] userInput = scanner.nextLine().split(" ");
+            if(userInput[0].equals("register")) {
+
+                String userName = userInput[1];
+                String number = userInput[2];
+                if(vehicleRegister.get(userName) != null) {
+                    System.out.println("ERROR: already registered with plate number " + vehicleRegister.get(userName));
+
+                } else {
+                    vehicleRegister.put(userName, number);
+                    System.out.println(userName + " registered " + number + " successfully");
+                }
+            } else {
+
+                String userName = userInput[1];
+                if(vehicleRegister.get(userName) == null) {
+
+                    System.out.println("ERROR: user " + userName +   " not found");
+                } else {
+
+                    vehicleRegister.remove(userName);
+                    System.out.println( userName + " unregistered successfully");
+                }
+            }
+        }
+        vehicleRegister.forEach((a, b) -> System.out.println(a + " => " + b));
+    }
+}
+
