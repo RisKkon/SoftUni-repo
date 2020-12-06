@@ -1,0 +1,95 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class ShoppingList {
+
+    public static class ShoppingList {
+
+        List<String> shoppingList;
+
+
+        public ShoppingList(List<String> shoppingList) {
+            this.shoppingList = shoppingList;
+        }
+
+        public void urgent(String[] tokens) {
+
+            if(!shoppingList.contains(tokens[1])) {
+
+                shoppingList.add(0, tokens[1]);
+            }
+        }
+
+        public void unnecessary(String[] tokens) {
+
+            shoppingList.remove(tokens[1]);
+            
+        }
+
+        public void correct(String[] tokens) {
+
+            for (int i = 0; i < shoppingList.size(); i++) {
+
+                if (shoppingList.get(i).equals(tokens[1])) {
+
+                    shoppingList.set(i, tokens[2]);
+                }
+            }
+        }
+
+        public void rearrange(String[] tokens) {
+            
+            for (int i = 0; i < shoppingList.size(); i++) {
+                
+                if(shoppingList.get(i).equals(tokens[1])) {
+
+                    shoppingList.add(tokens[1]);
+                    shoppingList.remove(i);
+                }
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        
+        List<String> items = Arrays.stream(scanner.nextLine().split("!")).collect(Collectors.toList());
+        ShoppingList shoppingList = new ShoppingList(items);
+        String userInput = scanner.nextLine();
+
+        while(!userInput.equals("Go Shopping!")) {
+
+            String[] tokens = userInput.split("\\s");
+
+            switch(tokens[0]) {
+
+                case "Urgent" :
+                    shoppingList.urgent(tokens);
+                    break;
+                case "Unnecessary" :
+                    shoppingList.unnecessary(tokens);
+                    break;
+                case "Rearrange" :
+                    shoppingList.rearrange(tokens);
+                    break;
+                case "Correct" :
+                    shoppingList.correct(tokens);
+                    break;
+            }
+
+            userInput = scanner.nextLine();
+        }
+        
+        for (int i = 0; i < shoppingList.shoppingList.size(); i++) {
+
+            if (i != shoppingList.shoppingList.size() - 1) {
+                System.out.print(shoppingList.shoppingList.get(i) + ", ");
+            } else {
+
+                System.out.print(shoppingList.shoppingList.get(i));
+            }
+        }
+    }
+}
