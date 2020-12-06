@@ -1,0 +1,32 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class BombNumbers {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> bombList = Arrays.stream(scanner.nextLine().split("\\s+"))
+                .map(Integer::parseInt).collect(Collectors.toList());
+        List<Integer> bombData = Arrays.stream(scanner.nextLine().split("\\s+"))
+                .map(Integer::parseInt).collect(Collectors.toList());
+        int bombNum = bombData.get(0);
+        int bombRange = bombData.get(1);
+
+        while(bombList.contains(bombNum)) {
+
+            int bombPos = bombList.indexOf(bombNum);
+            int leftBound = Math.max(0, bombPos - bombRange);
+            int rightBound = Math.min(bombList.size() - 1, bombPos + bombRange);
+            
+            if (rightBound >= leftBound) {
+                bombList.subList(leftBound, rightBound + 1).clear();
+            }
+        }
+        int sum = 0;
+        for(int g : bombList) {
+            sum += g;
+        }
+        System.out.println(sum);
+    }
+}
