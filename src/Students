@@ -1,0 +1,59 @@
+import java.util.*;
+
+public class Students {
+    
+    public static class Student implements Comparable<Student> {
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public double getGrade() {
+            return grade;
+        }
+
+        public String firstName;
+        public String lastName;
+        public double grade;
+
+
+        public Student(String firstName, String secondName, double grade) {
+
+            this.firstName = firstName;
+            this.lastName  = secondName;
+            this.grade = grade;
+        }
+
+        @Override
+        public int compareTo(Student student2) {
+
+
+            return Double.compare(student2.grade, this.grade);
+        }
+    }
+    
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int howManyInputs = Integer.parseInt(scanner.nextLine());
+        List<Student> students = new ArrayList<>();
+        for (int i = 0; i < howManyInputs; i++) {
+
+            String[] userInput = scanner.nextLine().split("\\s+");
+            students.add(new Student(userInput[0], userInput[1], Double.parseDouble(userInput[2])));
+        }
+        
+        Collections.sort(students);
+
+        for (Student student : students) {
+
+            System.out.printf("%s %s: %.2f \n", student.getFirstName(),
+                    student.getLastName(),
+                    student.getGrade());
+        }
+    }
+}
