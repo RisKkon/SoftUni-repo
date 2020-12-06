@@ -1,0 +1,79 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class ShootfortheWin {
+    
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        
+        List<Integer> listOfTargets = Arrays.stream(scanner.nextLine().split("\\s+"))
+                .map(Integer::parseInt).collect(Collectors.toList());
+        String userInput = scanner.nextLine();
+        while(!userInput.equals("End")) {
+
+            int index = Integer.parseInt(userInput);
+            if(isShotValid(listOfTargets, index)) {
+
+                if(!isTargetShot(listOfTargets, index)) {
+                    executeShot(listOfTargets, index);
+                }
+            }
+            userInput = scanner.nextLine();
+        }
+        printResultToConsole(listOfTargets);
+    }
+
+    public static boolean isShotValid(List<Integer> targets, int index) {
+
+        return index <= (targets.size() - 1);
+    }
+
+    public static boolean isTargetShot(List<Integer> targets, int index) {
+
+        return targets.get(index) == -1;
+    }
+
+    public static void executeShot(List<Integer> targets, int index) {
+
+        int currentTargetValue = targets.get(index);
+        targets.set(index, -1);
+        for (int i = 0; i < targets.size(); i++) {
+
+            if(targets.get(i) != -1) {
+
+                if(targets.get(i) <= currentTargetValue) {
+
+                    targets.set(i, targets.get(i) + currentTargetValue);
+                } else {
+
+                    targets.set(i, targets.get(i) - currentTargetValue);
+                }
+            }
+        }
+    }
+
+    public static void printResultToConsole(List<Integer> targets) {
+
+        int countOfShotTargets = 0;
+        for (Integer integer : targets) {
+
+            if (integer == -1) {
+
+                countOfShotTargets++;
+            }
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Integer target : targets) {
+
+            String separator = " ";
+            stringBuilder.append(target);
+            stringBuilder.append(separator);
+        }
+        String output = stringBuilder.toString();
+        System.out.println("Shot targets: " + countOfShotTargets + " -> " + output);
+    }
+}
