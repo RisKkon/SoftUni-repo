@@ -1,0 +1,55 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+
+public class OpinionPoll {
+
+    static class people {
+
+        public String name;
+        public int age;
+
+        public people(String name, int age) {
+
+            this.age = age;
+            this.name = name;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int howMany = Integer.parseInt(scanner.nextLine());
+        List<people> people = new ArrayList<>();
+        for (int i = 0; i < howMany; i++) {
+
+            String userInput = scanner.nextLine();
+            String[] info = userInput.split(" ");
+            int age = Integer.parseInt(info[1]);
+            if(age > 30) {
+                people.add(new people(info[0], age));
+            }
+        }
+        
+        List<String> users = new ArrayList<>();
+        for (Homework.people person : people) {
+
+            users.add(person.name + " " + person.age);
+        }
+        
+        List<String> sortedResult = users.stream().sorted().collect(Collectors.toList());
+        List<people> finalFinal = new ArrayList<>();
+        for (String s : sortedResult) {
+
+            String[] tokens = s.split(" ");
+            finalFinal.add(new people(tokens[0], Integer.parseInt(tokens[1])));
+
+        }
+
+        for (Homework.people value : finalFinal) {
+
+            System.out.println(value.name + " - " + value.age);
+        }
+    }
+}
