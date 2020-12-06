@@ -1,0 +1,18 @@
+import java.util.*;
+
+public class ExtractFile {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String userInput = scanner.nextLine();
+        String path = userInput.substring(userInput.lastIndexOf("\\") + 1);
+        String fileName = path.substring(0, path.indexOf("."));
+        String fileType = path.substring(path.lastIndexOf(".") + 1);
+
+        System.out.println("File name: " + fileName);
+        System.out.println("File extension: " + fileType);
+
+    }
+}
