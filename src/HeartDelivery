@@ -1,0 +1,70 @@
+import java.util.*;
+
+public class HeartDelivery {
+
+    public static class Cupid {
+
+        int index = 0;
+
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        int[] houses = Arrays.stream(scanner.nextLine().split("@"))
+                .mapToInt(Integer::parseInt).toArray();
+        String userInput = scanner.nextLine();
+        Cupid cupid = new Cupid();
+
+        while(!userInput.equals("Love!")) {
+
+            String[] commands = userInput.split("\\s");
+            jump(cupid, commands, houses);
+
+            userInput = scanner.nextLine();
+        }
+
+        int countOfFailedHouses = 0;
+
+        for (int house : houses) {
+
+            if (house > 1) {
+                countOfFailedHouses++;
+            }
+        }
+
+        if(countOfFailedHouses == 0) {
+
+            System.out.println("Cupid's last position was " + cupid.index + ".");
+            System.out.println("Mission was successful.");
+        } else {
+
+            System.out.println("Cupid's last position was " + cupid.index + ".");
+            System.out.println("Cupid has failed "+ countOfFailedHouses + " places.");
+        }
+    }
+
+    public static void jump(Cupid cupid, String[] commands, int[] houses) {
+
+        int indexToJump = Integer.parseInt(commands[1]);
+        cupid.index += indexToJump;
+
+        if (cupid.index > houses.length - 1) {
+
+            cupid.index = 0;
+        }
+        
+        if(houses[cupid.index] != 1) {
+            houses[cupid.index] -= 2;
+        } else {
+
+            System.out.printf("Place %d already had Valentine's day.%n", cupid.index);
+        }
+        
+        if(houses[cupid.index] == 0) {
+
+            System.out.printf("Place %d has Valentine's day.%n", cupid.index);
+            houses[cupid.index] = 1;
+        }
+    }
+}
