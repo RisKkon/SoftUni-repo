@@ -1,0 +1,27 @@
+import java.util.*;
+
+public class ReplaceRepeatingChars {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String userInput = scanner.nextLine();
+        char[] letters = userInput.toCharArray();
+        List<Character> newList = new ArrayList<>();
+        for (int i = 0; i < letters.length; i++) {
+            if(i == 0) {
+                newList.add(letters[i]);
+            } else {
+
+                if(letters[i - 1] != letters[i]) {
+                    newList.add(letters[i]);
+                }
+            }
+        }
+        for (Character character : newList) {
+
+            System.out.print(character);
+        }
+    }
+}
