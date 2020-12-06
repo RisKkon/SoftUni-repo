@@ -1,0 +1,46 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+
+public class AdvertisementMessage {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int howMany = Integer.parseInt(scanner.nextLine());
+        
+        String[] phrases = new String[6];
+        phrases[0] = "Excellent product.";
+        phrases[1] = "Such a great product.";
+        phrases[2] = "I always use that product.";
+        phrases[3] = "Best product of its category.";
+        phrases[4] = "Exceptional product.";
+        phrases[5] = "I can’t live without this product.";
+
+        String[] events = new String[6];
+        events[0] = "Now i feel good.";
+        events[1] = "I have succeeded with this product.";
+        events[2] = "Makes miracles. I am happy of the results!";
+        events[3] = "I cannot believe but now I feel awesome.";
+        events[4] = "Try it yourself, I am very satisfied.";
+        events[5] = "I feel great!";
+
+        String[] authors = {"Diana", "Petya", "Stella", "Elena", "Katya", "Iva", "Annie", "Eva"};
+
+        String[] cities = {"Burgas", "Sofia", "Plovdiv", "Varna", "Ruse"};
+
+        for (int i = 0; i < howMany; i++) {
+
+            Random random = new Random();
+
+
+            System.out.print(phrases[random.nextInt(6 - 0)] + " "
+                    + events[random.nextInt(6 - 0)] + " " + authors[random.nextInt(6 - 0)] + " - "
+                    + cities[random.nextInt(5 - 0)] + "\n");
+
+        }
+
+    }
+
+}
