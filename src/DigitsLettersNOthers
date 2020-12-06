@@ -1,0 +1,38 @@
+import java.util.*;
+
+public class DigitsLettersNOthers {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String userInput = scanner.nextLine();
+        List<Character> chars = new ArrayList<>();
+        for (int i = 0; i < userInput.length(); i++) {
+            chars.add(userInput.charAt(i));
+        }
+        List<Character> numbers = new ArrayList<>();
+        List<Character> letters = new ArrayList<>();
+
+        for (int i = 0; i < chars.size(); i++) {
+
+            int size = chars.size();
+            if(Character.isLetter(chars.get(i))) {
+                letters.add(chars.get(i));
+                chars.remove(chars.get(i));
+
+            } else if(Character.isDigit(chars.get(i))) {
+                numbers.add(chars.get(i));
+                chars.remove(chars.get(i));
+            }
+            if(size != chars.size()) {
+                i--;
+            }
+        }
+        numbers.forEach(System.out::print);
+        System.out.println();
+        letters.forEach(System.out::print);
+        System.out.println();
+        chars.forEach(System.out::print);
+    }
+}
