@@ -1,0 +1,60 @@
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class StarEnigma {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int numberOfMessages = Integer.parseInt(scanner.nextLine());
+        Pattern pattern = Pattern.compile("@(?<name>[A-Z][a-z]+)[^@\\-\\!:>]*:(?<population>\\d+)[^@\\-\\!:>]*!(?<attackType>[A-Z])![^@\\-\\!:>]*->(?<soldiers>\\d+)");
+        List<String> attackedPlanets = new ArrayList<>();
+        List<String> destroyedPlanets = new ArrayList<>();
+
+        for (int i = 0; i < numberOfMessages; i++) {
+            String userInput = scanner.nextLine();
+            List<Character> newChars = new ArrayList<>();
+            int key = 0;
+
+            for (int j = 0; j < userInput.length(); j++) {
+                if(userInput.charAt(j) == 'S' || userInput.charAt(j) == 's' || userInput.charAt(j) == 'A' || userInput.charAt(j) == 'a'
+                        || userInput.charAt(j) == 'T' || userInput.charAt(j) == 't' || userInput.charAt(j) == 'R' || userInput.charAt(j) == 'r') {
+                    key++;
+                }
+            }
+            for (int j = 0; j < userInput.length(); j++) {
+
+                newChars.add((char) ((int) userInput.charAt(j) - key));
+
+            }
+            StringBuilder newMessage = new StringBuilder();
+            newChars.forEach(newMessage::append);
+            Matcher matcher = pattern.matcher(newMessage);
+            if(matcher.find()) {
+
+                String name = matcher.group("name");
+                String attackType = matcher.group("attackType");
+                switch(attackType) {
+                    case "A":
+                        attackedPlanets.add(name);
+                        break;
+                    case"D":
+                        destroyedPlanets.add(name);
+                }
+            }
+        }
+
+        System.out.println("Attacked planets: " + attackedPlanets.size());
+        attackedPlanets
+                .stream()
+                .sorted(String::compareTo)
+                .forEach(e -> System.out.println("-> " + e));
+        System.out.println("Destroyed planets: " + destroyedPlanets.size());
+        destroyedPlanets
+                .stream()
+                .sorted(String::compareTo)
+                .forEach(e -> System.out.println("-> " + e));
+    }
+}
