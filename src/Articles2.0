@@ -1,0 +1,83 @@
+import java.util.*;
+
+
+
+public class Articles2.0 {
+
+    public static class Article implements Comparable<Article> {
+
+        public String title;
+        public String content;
+        public String author;
+        public String whatToCompareTo;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public String getAuthor() {
+            return author;
+        }
+
+        public Article(String title, String content, String author) {
+
+            this.author = author;
+            this.content = content;
+            this.title = title;
+        }
+
+        @Override
+        public int compareTo(Article article2) {
+
+            if(this.whatToCompareTo.equals("title")) {
+
+                return this.title.compareTo(article2.getTitle());
+
+            } else if(this.whatToCompareTo.equals("content")) {
+
+                return this.content.compareTo(article2.getContent());
+
+            } else {
+
+                return this.author.compareTo(article2.getAuthor());
+            }
+        }
+        
+        public void printToConsole() {
+
+            System.out.println(this.title + " - " + this.content + ": " + this.author);
+        }
+    }
+    
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        List<Article> articles = new ArrayList<>();
+        int howManyInputs = Integer.parseInt(scanner.nextLine());
+
+        for (int i = 0; i < howManyInputs; i++) {
+
+            String[] tokens = scanner.nextLine().split(", ");
+            articles.add(new Article(tokens[0], tokens[1], tokens[2]));
+            
+        }
+
+        String whatToCompareTo = scanner.nextLine();
+        for (Article value : articles) {
+
+            value.whatToCompareTo = whatToCompareTo;
+
+        }
+        
+        Collections.sort(articles);
+        for (Article article : articles) {
+
+            article.printToConsole();
+        }
+    }
+}
