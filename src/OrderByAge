@@ -1,0 +1,62 @@
+import java.util.*;
+
+public class Homework {
+    
+    public static class Person implements Comparable<Person> {
+
+        String name;
+        String id;
+        int age;
+
+        public Person(String name, String id, int age) {
+            this.name = name;
+            this.id = id;
+            this.age = age;
+        }
+
+        public String toString() {
+
+            return String.format("%s with ID: %s is %d years old.", getName()
+                    , getId()
+                    , getAge());
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        @Override
+        public int compareTo(Person person2) {
+
+            return this.getAge() - person2.getAge();
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String userInput = scanner.nextLine();
+        List<Person> people = new ArrayList<>();
+
+        while(!userInput.equals("End")) {
+
+            String[] data = userInput.split("\\s+");
+            Person person = new Person(data[0], data[1], Integer.parseInt(data[2]));
+            people.add(person);
+            userInput = scanner.nextLine();
+        }
+
+        Collections.sort(people);
+        people.forEach(person -> System.out.println(person.toString()));
+    }
+
+}
