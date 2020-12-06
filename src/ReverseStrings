@@ -1,0 +1,23 @@
+import java.util.*;
+
+public class ReverseStrings {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+
+        while(!userInput.equals("end")) {
+            StringBuilder result = new StringBuilder();
+            List<Character> charList = new ArrayList<>();
+            for (int i = 0; i < userInput.length(); i++) {
+                charList.add(userInput.charAt(i));
+            }
+
+            Collections.reverse(charList);
+            charList.forEach(result::append);
+            System.out.println(userInput + " = " + result);
+            userInput = scanner.nextLine();
+        }
+    }
+}
