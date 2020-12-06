@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+public class CounterStrike {
+
+    public static class Match {
+
+
+        int totalEnergy;
+        int wonBattles = 0;
+
+        public Match(int totalEnergy) {
+            
+            this.totalEnergy = totalEnergy;
+        }
+
+        public boolean isKillPossible(int neededEnergy) {
+
+            return neededEnergy <= this.totalEnergy;
+        }
+
+        public void executeKill(int neededEnergy) {
+
+            this.totalEnergy -= neededEnergy;
+            this.wonBattles++;
+        }
+        
+        public void checkForBonus() {
+
+            if(this.wonBattles % 3 == 0) {
+
+                this.totalEnergy += this.wonBattles;
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        int totalEnergy = Integer.parseInt(scanner.nextLine());
+        Match match = new Match(totalEnergy);
+        String userInput = scanner.nextLine();
+
+        while(!userInput.equals("End of battle")) {
+
+            int neededEnergy = Integer.parseInt(userInput);
+            if(match.isKillPossible(neededEnergy)) {
+                match.executeKill(neededEnergy);
+                match.checkForBonus();
+
+            } else {
+
+                System.out.printf("Not enough energy! Game ends with %d won battles and %d energy", match.wonBattles
+                        , match.totalEnergy);
+                return;
+
+            }
+            userInput = scanner.nextLine();
+
+        }
+        System.out.printf("Won battles: %d. Energy left: %d", match.wonBattles, match.totalEnergy);
+    }
+}
