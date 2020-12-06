@@ -1,0 +1,25 @@
+import java.util.*;
+
+public class TextFilter {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String[] bannedWords = scanner.nextLine().split(", ");
+        String userInput = scanner.nextLine();
+
+        for (String bannedWord : bannedWords) {
+
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int j = 0; j < bannedWord.length(); j++) {
+                stringBuilder.append("*");
+            }
+            while (userInput.contains(bannedWord)) {
+
+                userInput = userInput.replaceAll(bannedWord, stringBuilder.toString());
+            }
+        }
+        System.out.println(userInput);
+    }
+}
