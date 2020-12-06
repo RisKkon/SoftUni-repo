@@ -1,0 +1,135 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class MovingTarget {
+
+    public static class TargetList {
+
+        List<Integer> targetList;
+
+        public TargetList(List<Integer> targetList) {
+            this.targetList = targetList;
+        }
+
+        public void shoot(int index, int power) {
+            
+            if(index <= targetList.size() - 1) {
+                int currentTarget = targetList.get(index);
+
+                if (currentTarget > power) {
+
+                    currentTarget -= power;
+                    targetList.set(index, currentTarget);
+                } else {
+
+                    targetList.remove(index);
+                }
+            }
+        }
+
+        public void add(int index, int value) {
+
+            if(index <= targetList.size() - 1) {
+
+                targetList.add(index, value);
+            } else {
+
+                System.out.println("Invalid placement!");
+            }
+        }
+
+        public void strike(int index, int radius) {
+
+            List<Integer> list = new ArrayList<>(targetList);
+            boolean isStrikePossible = true;
+            int startForLeftSide = index - 1;
+            int endForLeftSide = index - radius;
+
+
+            if (endForLeftSide > 0) {
+
+                for (int i = startForLeftSide; i >= endForLeftSide; i--) {
+
+                    targetList.remove(i);
+                    index--;
+
+                }
+
+            } else {
+                isStrikePossible = false;
+            }
+
+            int startForRightSide = index + 1;
+            int endForRightSide = index + radius;
+            if (endForRightSide < targetList.size() - 1) {
+                for (int i = startForRightSide; i <= endForRightSide; i++) {
+                    targetList.remove(i);
+
+                }
+                targetList.remove(index);
+            } else {
+
+                isStrikePossible = false;
+
+            }
+            if(!isStrikePossible) {
+
+                targetList.clear();
+                targetList.addAll(list);
+                System.out.println("Strike missed!");
+            }
+        }
+        
+        public void printResult() {
+
+            StringBuilder stringBuilder = new StringBuilder();
+            String separator = "|";
+            for (int i = 0; i < targetList.size(); i++) {
+                stringBuilder.append(targetList.get(i));
+                if(i != targetList.size() - 1) {
+                    stringBuilder.append(separator);
+                }
+            }
+            String result = stringBuilder.toString();
+            System.out.println(result);
+        }
+    }
+
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        List<Integer> targets = Arrays.stream(scanner.nextLine().split("\\s+")).map(Integer::parseInt)
+                .collect(Collectors.toList());
+        TargetList targetList = new TargetList(targets);
+        String userInput = scanner.nextLine();
+
+        while(!userInput.equals("End")) {
+
+            String[] tokens = userInput.split("\\s+");
+            int index = Integer.parseInt(tokens[1]);
+            int second = Integer.parseInt(tokens[2]);
+            switch (tokens[0]) {
+
+                case "Shoot" :
+                    targetList.shoot(index, second);
+                    break;
+
+                case "Add" :
+                    targetList.add(index, second);
+                    break;
+
+                case "Strike" :
+                    targetList.strike(index, second);
+                    break;
+            }
+            userInput = scanner.nextLine();
+        }
+        targetList.printResult();
+    }
+}
+
