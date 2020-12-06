@@ -1,0 +1,88 @@
+import java.util.Scanner;
+
+public class MuOnline {
+
+    public static class player {
+
+        int health = 100;
+        int bitcoin = 0;
+        int roomCount = 0;
+
+
+        public void potion(String[] commands) {
+
+            if(health > 0) {
+                roomCount++;
+                int amountOfHp = Integer.parseInt(commands[1]);
+                int hpOverTop = 100 - health;
+                health += amountOfHp;
+                if (health > 100) {
+                    health = 100;
+                    System.out.printf("You healed for %d hp.%n", hpOverTop);
+                } else {
+                    System.out.printf("You healed for %d hp.%n", amountOfHp);
+                }
+                System.out.printf("Current health: %d hp.%n", health);
+            }
+        }
+
+        public void chest(String[] commands) {
+            if(health > 0) {
+                roomCount++;
+                int amountOfBitcoin = Integer.parseInt(commands[1]);
+                bitcoin += amountOfBitcoin;
+                System.out.printf("You found %d bitcoins.%n", amountOfBitcoin);
+            }
+        }
+
+        public void monster(String[] commands) {
+            if(health > 0) {
+                roomCount++;
+                String monster = commands[0];
+                int hpToLoose = Integer.parseInt(commands[1]);
+                health -= hpToLoose;
+
+                if (health <= 0) {
+
+                    System.out.printf("You died! Killed by %s.%n", monster);
+                    System.out.printf("Best room: %d", roomCount);
+                    
+                } else {
+
+                    System.out.printf("You slayed %s.%n", monster);
+                }
+            }
+        }
+
+        public void getCommand(String[] commands) {
+
+            if(commands[0].equals("potion")) {
+                potion(commands);
+            } else if(commands[0].equals("chest")) {
+                chest(commands);
+            } else {
+                monster(commands);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        player player = new player();
+        String[] userInput = scanner.nextLine().split("\\|");
+
+        for (String s : userInput) {
+
+            String[] commands = s.split("\\s");
+            player.getCommand(commands);
+        }
+        if(player.health > 0) {
+
+            System.out.println("You've made it!");
+            System.out.printf("Bitcoins: %d%n", player.bitcoin);
+            System.out.printf("Health: %d%n", player.health);
+        }
+    }
+}
