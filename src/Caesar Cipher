@@ -1,0 +1,16 @@
+import java.util.*;
+
+public class Homework {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+        System.out.println();
+        
+        for(char c : userInput.toCharArray()) {
+
+            System.out.print((char) (c + 3));
+        }
+    }
+}
