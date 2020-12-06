@@ -1,0 +1,59 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+
+public class Articles {
+
+    static class article {
+
+        public String title;
+        public String content;
+        public String author;
+
+        public article(String title, String content, String author) {
+
+            this.title = title;
+            this.content = content;
+            this.author = author;
+        }
+
+        public void edit(List<String> userInput) {
+            
+            this.content = userInput.get(1).trim();
+        }
+
+        public void changeAuthor(List<String> userInput) {
+            
+            this.author = userInput.get(1).trim();
+        }
+        
+        public void rename(List<String> userInput) {
+            
+            this.title = userInput.get(1).trim();
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String[] tokens = scanner.nextLine().split(", ");
+        int howMany = Integer.parseInt(scanner.nextLine());
+        article article = new article(tokens[0], tokens[1], tokens[2]);
+        for (int i = 0; i < howMany; i++) {
+
+            List<String > userInput = Arrays.stream(scanner.nextLine().split(":"))
+                    .collect(Collectors.toList());
+            
+            if(userInput.get(0).equals("Edit")) {
+                article.edit(userInput);
+            } else if(userInput.get(0).equals("ChangeAuthor")) {
+                article.changeAuthor(userInput);
+            } else {
+                article.rename(userInput);
+            }
+            
+        }
+        System.out.println(article.title + " - " + article.content + ": " + article.author);
+    }
+}
