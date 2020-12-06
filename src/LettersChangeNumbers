@@ -1,0 +1,52 @@
+import java.util.*;
+
+public class HomeLettersChangeNumberswork {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        StringBuilder stringBuilder = new StringBuilder();
+        String[] useInput = scanner.nextLine().split("\\s+");
+        double sum = 0;
+        
+        double number;
+        for (String s : useInput) {
+
+            char[] chars = s.toCharArray();
+            char firstLetter = 0;
+            char secondLetter = 0;
+
+            for (int j = 0; j < chars.length; j++) {
+
+                if (j == 0) {
+                    firstLetter = chars[j];
+                } else if (Character.isDefined(chars[j]) && j != chars.length - 1) {
+                    stringBuilder.append(chars[j]);
+                } else {
+                    secondLetter = chars[j];
+                }
+
+            }
+
+            number = Double.parseDouble(stringBuilder.toString());
+            if (Character.isLowerCase(firstLetter)) {
+
+                number *= (int) firstLetter - 96;
+            }
+            if (Character.isUpperCase(firstLetter)) {
+                number /= (int) firstLetter - 64;
+            }
+            if (Character.isLowerCase(secondLetter)) {
+
+                number += (int) secondLetter - 96;
+            }
+            if (Character.isUpperCase(secondLetter)) {
+                number -= (int) secondLetter - 64;
+            }
+
+            sum += number;
+            stringBuilder.delete(0, stringBuilder.length());
+        }
+        System.out.printf("%.2f", sum);
+    }
+}
