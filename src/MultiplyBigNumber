@@ -1,0 +1,33 @@
+import java.util.*;
+
+public class MultiplyBigNumber {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String userInput = scanner.nextLine().replaceFirst("^0+", "");
+        int num = Integer.parseInt(scanner.nextLine());
+        int carry = 0;
+        StringBuilder sb = new StringBuilder();
+        for (int i = userInput.length() - 1; i >= 0; i--) {
+
+            int digit = Integer.parseInt(String.valueOf(userInput.charAt(i)));
+            int result = digit * num + carry;
+
+            if(num == 0) {
+                System.out.println(result);
+                return;
+            }
+            
+            if(i == 0) {
+                sb.insert(0, result);
+            } else {
+                int resDig = result % 10;
+                carry = result / 10;
+                sb.insert(0, resDig);
+            }
+        }
+        System.out.println(sb);
+    }
+}
