@@ -1,0 +1,71 @@
+import java.util.*;
+
+public class LegendaryFarming {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, Integer> importantMaterials = new LinkedHashMap<>();
+        Map<String, Integer> junkMaterials = new TreeMap<>();
+        importantMaterials.put("shards", 0);
+        importantMaterials.put("fragments", 0);
+        importantMaterials.put("motes", 0);
+
+        boolean isGameActive = true;
+        while (isGameActive) {
+
+            String userInput = scanner.nextLine().toLowerCase();
+            String[] tokens = userInput.split(" ");
+
+            for (int i = 0; i < tokens.length; i += 2) {
+
+                String currentMaterial = tokens[i + 1].toLowerCase();
+                Integer value = Integer.parseInt(tokens[i]);
+
+                if(currentMaterial.equals("shards") || currentMaterial.equals("fragments") || currentMaterial.equals("motes")) {
+                    Integer currentValue = importantMaterials.get(currentMaterial);
+                    importantMaterials.put(currentMaterial, currentValue + value);
+
+                    if (importantMaterials.get(currentMaterial) >= 250) {
+                        isGameActive = false;
+                        switch (currentMaterial) {
+
+                            case "shards":
+                                System.out.println("Shadowmourne obtained!");
+                                break;
+                            case "fragments":
+                                System.out.println("Valanyr obtained!");
+                                break;
+                            case "motes":
+                                System.out.println("Dragonwrath obtained!");
+                                break;
+                        }
+                        importantMaterials.put(currentMaterial, (currentValue + value) - 250);
+                    }
+                } else {
+
+                    Integer currentValue = junkMaterials.get(currentMaterial);
+                    if(currentValue == null) {
+
+                        currentValue = 0;
+                    }
+                    junkMaterials.put(currentMaterial, currentValue + value);
+                }
+
+                if(!isGameActive) {
+                    break;
+                }
+            }
+        }
+        importantMaterials.entrySet()
+                .stream()
+                .sorted((f, s) -> {
+                    int result = s.getValue().compareTo(f.getValue());
+                    if(result == 0) {
+                        result = f.getKey().compareTo(s.getKey());
+                    }
+                    return result;
+                }).forEach(e -> System.out.println(e.getKey() + ": " + e.getValue()));
+
+        junkMaterials.forEach((k, v) -> System.out.println(k + ": " + v));
+    }
+}
