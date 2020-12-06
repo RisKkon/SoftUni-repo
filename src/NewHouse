@@ -1,0 +1,86 @@
+import java.util.Scanner;
+
+public class NewHouse {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String typeOfFlower = scanner.nextLine();
+        int countOfFlowers = Integer.parseInt(scanner.nextLine());
+        int budget = Integer.parseInt(scanner.nextLine());
+        double finalPrice = 0;
+
+        switch (typeOfFlower) {
+
+            case "Roses":
+                if (countOfFlowers > 80) {
+
+                    finalPrice = countOfFlowers * 5;
+                    finalPrice -= finalPrice * 0.10;
+
+                } else {
+                    finalPrice = countOfFlowers * 5;
+
+                }
+                break;
+
+            case "Dahlias":
+
+                if (countOfFlowers > 90) {
+
+                    finalPrice = countOfFlowers * 3.80;
+                    finalPrice -= finalPrice * 0.15;
+
+                } else {
+                    finalPrice = countOfFlowers * 3.80;
+
+                }
+                break;
+
+            case "Tulips":
+
+                if (countOfFlowers > 80) {
+
+                    finalPrice = countOfFlowers * 2.80;
+                    finalPrice -= finalPrice * 0.15;
+
+                } else {
+                    finalPrice = countOfFlowers * 2.80;
+
+                }
+                break;
+
+            case "Narcissus":
+
+                if (countOfFlowers < 120) {
+
+                    finalPrice = countOfFlowers * 3;
+                    finalPrice += finalPrice * 0.15;
+
+                } else {
+                    finalPrice = countOfFlowers * 3;
+
+                }
+                break;
+
+            case "Gladiolus":
+
+                if (countOfFlowers < 80) {
+                    finalPrice = countOfFlowers * 2.50;
+                    finalPrice += finalPrice * 0.20;
+
+                } else {
+                    finalPrice = countOfFlowers * 2.50;
+
+                }
+                break;
+        }
+
+        if(budget < finalPrice) {
+            System.out.printf("Not enough money, you need %.2f leva more.", finalPrice - budget);
+        } else {
+
+            System.out.printf("Hey, you have a great garden with %d %s and %.2f leva left.", countOfFlowers, typeOfFlower, budget - finalPrice);
+        }
+    }
+}
