@@ -1,0 +1,39 @@
+import java.util.*;
+
+public class Orders2 {
+
+    public static class Product {
+
+        double price = 0;
+        int count = 0;
+    }
+
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        Map<String, Product> shopList = new LinkedHashMap<>();
+        String userInput = scanner.nextLine();
+        while(!userInput.equals("buy")) {
+
+            String[] tokens = userInput.split(" ");
+            String typeOfProduct = tokens[0];
+            double price = Double.parseDouble(tokens[1]);
+            int count = Integer.parseInt(tokens[2]);
+            Product product = shopList.get(typeOfProduct);
+            
+            if(product == null) {
+
+                product = new Product();
+            }
+            product.count += count;
+            product.price = price;
+
+            shopList.put(typeOfProduct, product);
+            userInput = scanner.nextLine();
+        }
+        shopList.forEach((key, value) -> System.out.printf("%s -> %.2f%n", key, value.count * value.price));
+    }
+}
+
