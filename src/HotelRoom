@@ -1,0 +1,72 @@
+
+import java.util.Scanner;
+
+public class HotelRoom {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        String month = scanner.nextLine();
+        int numOfDaysInHotel = Integer.parseInt(scanner.nextLine());
+        double totalForApartment = 0;
+        double totalForStudio = 0;
+        double priceOfStudio;
+        double priceOfApartment;
+
+        switch (month) {
+
+            case "May" :
+            case "October" :
+
+                priceOfApartment = 65;
+                priceOfStudio = 50;
+                if(numOfDaysInHotel > 7 && numOfDaysInHotel <= 14) {
+                    
+                    priceOfStudio -= priceOfStudio * 0.05;
+                }
+
+                if(numOfDaysInHotel > 14) {
+
+                    priceOfApartment -= priceOfApartment * 0.10;
+                    priceOfStudio -= priceOfStudio * 0.30;
+                }
+
+                totalForApartment = numOfDaysInHotel * priceOfApartment;
+                totalForStudio = numOfDaysInHotel * priceOfStudio;
+                break;
+
+            case "June" :
+            case "September" :
+
+                priceOfApartment = 68.70;
+                priceOfStudio = 75.20;
+                
+                if(numOfDaysInHotel > 14) {
+
+                    priceOfApartment -= priceOfApartment * 0.10;
+                    priceOfStudio -= priceOfStudio * 0.20;
+                }
+
+                totalForApartment = numOfDaysInHotel * priceOfApartment;
+                totalForStudio = numOfDaysInHotel * priceOfStudio;
+                break;
+
+            case "July" :
+            case "August" :
+
+                priceOfApartment = 77;
+                priceOfStudio = 76;
+                if(numOfDaysInHotel > 14) {
+
+                    priceOfApartment -= priceOfApartment * 0.10;
+
+                }
+                totalForApartment = numOfDaysInHotel * priceOfApartment;
+                totalForStudio = numOfDaysInHotel * priceOfStudio;
+                break;
+        }
+        System.out.printf("Apartment: %.2f lv.", totalForApartment);
+        System.out.println();
+        System.out.printf("Studio: %.2f lv.", totalForStudio);
+    }
+}
