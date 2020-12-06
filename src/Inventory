@@ -1,0 +1,108 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class Inventory {
+
+    public static class Inventory {
+
+        List<String> items;
+
+        public Inventory(List<String> items) {
+            this.items = items;
+        }
+        
+        public void collect(String[] tokens) {
+
+            String item = tokens[1];
+            if(!items.contains(item)) {
+
+                items.add(item);
+            }
+        }
+
+        public void drop(String[] tokens) {
+
+            String item = tokens[1];
+            items.remove(item);
+        }
+
+        public void combineItems(String[] tokens) {
+
+            String[] itemsToCombine = tokens[1].split(":");
+            String oldItem = itemsToCombine[0];
+            String newItem = itemsToCombine[1];
+
+            int indexToAdd = 0;
+            if(items.contains(oldItem)) {
+
+                for (int i = 0; i < items.size(); i++) {
+
+                    if(items.get(i).equals(oldItem)) {
+                        indexToAdd = i;
+                    }
+                }
+                items.add(indexToAdd + 1, newItem);
+
+            }
+        }
+
+        public void renew(String[] tokens) {
+
+            String item = tokens[1];
+            if(items.contains(item)) {
+
+                int indexToRemove = 0;
+                for (int i = 0; i < items.size(); i++) {
+
+                    if(items.get(i).equals(item)) {
+                        indexToRemove = i;
+                    }
+                }
+                items.remove(indexToRemove);
+                items.add(item);
+            }
+        }
+    }
+
+
+
+    public static void main(String[] args) {
+        
+        Scanner scanner = new Scanner(System.in);
+        List<String> items = Arrays.stream(scanner.nextLine().split(", ")).collect(Collectors.toList());
+        Inventory inventory = new Inventory(items);
+        String userInput = scanner.nextLine();
+
+        while(!userInput.equals("Craft!")) {
+
+            String[] tokens = userInput.split(" - ");
+            switch (tokens[0]) {
+
+                case "Collect" :
+                    inventory.collect(tokens);
+                    break;
+                case"Drop" :
+                    inventory.drop(tokens);
+                    break;
+                case "Combine Items" :
+                    inventory.combineItems(tokens);
+                    break;
+                case "Renew" :
+                    inventory.renew(tokens);
+                    break;
+            }
+            userInput = scanner.nextLine();
+        }
+        for (int i = 0; i < inventory.items.size(); i++) {
+
+            String separator = ", ";
+            System.out.print(inventory.items.get(i));
+            if(i != inventory.items.size() - 1) {
+                System.out.print(separator);
+            }
+        }
+    }
+}
