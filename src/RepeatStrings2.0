@@ -1,0 +1,19 @@
+import java.util.*;
+
+public class RepeatStrings2.0 {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        String[] userInput = scanner.nextLine().split("\\s");
+        StringBuilder stringBuilder = new StringBuilder();
+        
+        for (String s : userInput) {
+
+            for (int j = 0; j < s.length(); j++) {
+                stringBuilder.append(s);
+            }
+        }
+        System.out.println(stringBuilder);
+    }
+}
