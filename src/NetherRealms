@@ -1,0 +1,79 @@
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class NetherRealms {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String[] userInput = scanner.nextLine().split(",\\s*");
+        Map<String, List<Double>> demons = new TreeMap<>();
+        
+        Pattern patternForDemonTotalHealth = Pattern.compile("[^+\\-*/.0-9\\s+]");
+        Pattern patternForDemonBaseDamage = Pattern.compile("\\+?-?\\d*\\.?\\d+");
+        Pattern patternForMath = Pattern.compile("[/*]");
+        
+        String forDecimalFormat = "###, ###.##";
+        DecimalFormat decimalFormat = new DecimalFormat(forDecimalFormat);
+
+        List<String> mathOperators = new ArrayList<>();
+        for (int i = 0; i < userInput.length; i++) {
+            String name = userInput[i];
+            Matcher matcher = patternForDemonTotalHealth.matcher(name);
+
+            StringBuilder demonHealthString = new StringBuilder();
+            List<Double> demonValues = new ArrayList<>();
+            double demonHealth = 0;
+            double demonBaseDamageValue = 0;
+            while(matcher.find()) {
+                demonHealthString.append(matcher.group());
+
+            }
+            for (int j = 0; j < demonHealthString.length(); j++) {
+
+                demonHealth += demonHealthString.charAt(j);
+
+            }
+            matcher = patternForDemonBaseDamage.matcher(name);
+            while(matcher.find()) {
+                demonBaseDamageValue += Double.parseDouble(matcher.group());
+            }
+            matcher = patternForMath.matcher(name);
+            while(matcher.find()) {
+                mathOperators.add(matcher.group());
+            }
+            for (int j = 0; j < mathOperators.size(); j++) {
+
+                switch(mathOperators.get(i)) {
+
+                    case "/" :
+                        demonBaseDamageValue /= 2;
+                        break;
+                    case "*":
+                        demonBaseDamageValue *= 2;
+                        break;
+                }
+            }
+            demonValues.add(demonHealth);
+            demonValues.add(demonBaseDamageValue);
+            demons.put(name, demonValues);
+        }
+
+        demons.forEach((key, value) -> {
+            System.out.print(key + " - ");
+            for (int i = 0; i < value.size(); i++) {
+
+                if (i == 0) {
+                    String output = decimalFormat.format(value.get(i));
+                    System.out.print(output + "health, ");
+                } else {
+                    System.out.printf("%.2f damage%n", value.get(i));
+                }
+            }
+        });
+    }
+}
